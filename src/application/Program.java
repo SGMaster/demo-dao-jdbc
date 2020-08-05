@@ -24,6 +24,13 @@ public class Program {
 		for (Seller sellers: list) {
 			System.out.println(sellers);
 		}
+		
+		System.out.println();
+		System.out.println("=== TEST 3: seller findAll ===");
+		list = sellerDao.findAll();
+		for (Seller sellers: list) {
+			System.out.println(sellers);
+		}
 	}
 	
 }
