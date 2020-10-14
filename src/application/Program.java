@@ -2,9 +2,11 @@ package application;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -14,6 +16,7 @@ public class Program {
 	public static void main(String[] args) {
 		
 		SellerDao sellerDao = DaoFactory.createSellerDao();
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("=== TEST 1: seller findById ===");
@@ -50,10 +53,45 @@ public class Program {
 		
 		System.out.println();
 		System.out.println("=== TEST 6: seller delete ===");
-		System.out.println("Enter Id For Deletion Test: ");
+		System.out.println("Enter Id For Seller Deletion Test: ");
 		int id = sc.nextInt();
 		sellerDao.deleteById(id);
 		System.out.println("Deletion Completed");
+		
+		System.out.println();
+		System.out.println("=== TEST 7: department findAll ===");
+		List<Department> departmentList = departmentDao.findAll();
+		for (Department department2: departmentList) {
+			System.out.println(department2);
+		}
+		
+		System.out.println();
+		System.out.println("=== TEST 8: department findById ===");
+		System.out.println("Enter Id For Department findById Test: ");
+		int departmentId = sc.nextInt();
+		department = departmentDao.findById(departmentId);
+		if(Objects.nonNull(department))
+			System.out.println(department);
+		
+		System.out.println();
+		System.out.println("=== TEST 9: Department delete ===");
+		System.out.println("Enter Id For Department Deletion Test: ");
+		id = sc.nextInt();
+		departmentDao.deleteById(id);
+		System.out.println("Deletion Completed");
+		
+		System.out.println();
+		System.out.println("=== TEST 10: Department update ===");
+		department = departmentDao.findById(1);
+		department.setName("Books");
+		departmentDao.update(department);
+		System.out.println("Update Completed!");
+		
+		System.out.println();
+		System.out.println("=== TEST 11: Department insert ===");
+		Department newDepartment = new Department(null, "Computers");
+		departmentDao.insert(newDepartment);
+		System.out.println("Inserted! New Id = " + newDepartment.getId());
 		
 		sc.close();
 	}
